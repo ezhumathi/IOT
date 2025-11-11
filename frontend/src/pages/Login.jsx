@@ -10,21 +10,25 @@ export default function Login() {
   const handleLogin = async (e) => {
     e.preventDefault();
     try {
-      const res = await fetch("http://iot-pp8j.onrender.com/api/auth/login", {
+      // ✅ Use HTTPS for Render backend
+      const res = await fetch("https://iot-pp8j.onrender.com/api/auth/login", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ email, password }),
       });
+
       const data = await res.json();
+      console.log("Login response:", data); // <-- Debug: see response
+
       if (res.ok) {
-        localStorage.setItem("token", data.token);
-        navigate("/home");
+        localStorage.setItem("token", data.token); // Save token
+        navigate("/home"); // Redirect to home
       } else {
         alert(data.error || "Login failed");
       }
     } catch (err) {
       console.error(err);
-      alert("Something went wrong!");
+      alert("Something went wrong! Check console for details.");
     }
   };
 

@@ -3,8 +3,8 @@ import requests
 import time
 import random
 
-BACKEND = "http://iot-pp8j.onrender.com"
-DEVICE_NAME = "Test-Socket-1"
+BACKEND = "https://iot-pp8j.onrender.com"
+DEVICE_NAME = "blue_bulb"
 
 
 r = requests.post(f"{BACKEND}/api/devices", json={"name": DEVICE_NAME, "location": "living-room"})
