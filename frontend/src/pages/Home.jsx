@@ -9,24 +9,28 @@ export default function Home() {
   const [summary, setSummary] = useState({ totalEnergy: 0, totalBill: 0 });
 
   useEffect(() => {
-    fetchDevices();
-    const interval = setInterval(fetchDevices, 5000); // auto-refresh every 5s
+    fetchTotals();
+    const interval = setInterval(fetchTotals, 5000); // auto-refresh every 5s
     return () => clearInterval(interval);
   }, []);
 
-  async function fetchDevices() {
+  async function fetchTotals() {
     try {
-      const res = await axios.get(`${BASE}/devices`);
-      setDevices(res.data);
+      const devicesRes = await axios.get(`${BASE}/devices`);
+      const devicesList = devicesRes.data;
+      setDevices(devicesList);
 
-      // Compute total energy & total bill
       let totalEnergy = 0;
       let totalBill = 0;
-      res.data.forEach(d => {
-        const power = d.power || 0; // in W
-        totalEnergy += power / 1000; // kWh
-        totalBill += (power / 1000) * 0.83 * 83; // INR
-      });
+
+      // Sum up all device readings (energy + bill)
+      await Promise.all(devicesList.map(async device => {
+        const res = await axios.get(`${BASE}/consumption/${device._id}`);
+        totalEnergy += res.data.energyKWh || 0;
+        // Bill in INR: energyKWh * cost (USD) * conversion (83)
+        totalBill += (res.data.estimatedCost || 0) * 83;
+      }));
+
       setSummary({ totalEnergy, totalBill });
     } catch (err) {
       console.error(err);

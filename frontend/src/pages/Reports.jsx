@@ -36,7 +36,7 @@ export default function Reports() {
 
   return (
     <div className="page">
-      <h1>📊 Energy Reports</h1>
+      <h1> Energy Reports</h1>
       <p>Track your devices, energy consumption, and cost savings in real-time.</p>
 
       <div className="charts-container">
