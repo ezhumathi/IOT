@@ -3,7 +3,7 @@ import axios from 'axios';
 import { Link } from 'react-router-dom';
 import './Devices.css';
 
-const BASE = "http://localhost:5000/api";
+const BASE = "http://iot-pp8j.onrender.com/api";
 
 export default function Devices() {
   const [devices, setDevices] = useState([]);

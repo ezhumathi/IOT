@@ -3,7 +3,7 @@ import requests
 import time
 import random
 
-BACKEND = "http://localhost:5000"
+BACKEND = "http://iot-pp8j.onrender.com"
 DEVICE_NAME = "Test-Socket-1"
 
 

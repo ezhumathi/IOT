@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import "./Home.css";
 
-const BASE = "http://localhost:5000/api";
+const BASE = "http://iot-pp8j.onrender.com/api";
 
 export default function Home() {
   const [devices, setDevices] = useState([]);
