@@ -1,4 +1,10 @@
 [build]
   base = "frontend"
+  publish = "frontend/dist"
   command = "npm run build"
-  publish = "frontend/build"  # use "frontend/dist" if Vite
+
+[functions]
+  directory = "netlify/functions"
+
+[build.environment]
+  REACT_APP_BACKEND_URL = "https://iot-pp8j.onrender.com/"
